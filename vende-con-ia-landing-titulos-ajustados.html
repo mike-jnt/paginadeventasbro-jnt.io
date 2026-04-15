@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vende con I.A. | Landing de ventas</title>
+  <meta name="description" content="Convierte WhatsApp en una máquina de ventas con mensajes claros, seguimiento correcto y una estrategia simple que sí lleva a tus clientes a comprar." />
+  <style>
+    :root{
+      --bg:#F8FCF8;
+      --bg-soft:#EAF7EE;
+      --panel:#FFFFFF;
+      --panel-2:#F3FBF4;
+      --line:rgba(18,49,34,.10);
+      --line-strong:rgba(18,49,34,.16);
+      --text:#123122;
+      --muted:#5F7A69;
+      --primary:#166534;
+      --primary-2:#047857;
+      --primary-soft:rgba(22,101,52,.12);
+      --success:#166534;
+      --warning:#8ED19F;
+      --danger:#B91C1C;
+      --dark:#123122;
+      --radius:22px;
+      --radius-lg:28px;
+      --shadow:0 22px 56px rgba(18,49,34,.12);
+      --shadow-soft:0 14px 34px rgba(18,49,34,.08);
+      --max:1200px;
+      --section-space:92px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(22,101,52,.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(4,120,87,.06), transparent 18%),
+        linear-gradient(180deg,#F8FCF8 0%, #F3FBF4 36%, #EAF7EE 100%);
+      color:var(--text);
+      line-height:1.56;
+      overflow-x:hidden;
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    button,input,textarea{font:inherit}
+
+    .container{width:min(var(--max),92%);margin:auto}
+    .section{padding:var(--section-space) 0;position:relative}
+    .grid{display:grid;gap:18px}
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(47,143,78,.06);
+      border:1px solid var(--line);
+      color:#166534;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      backdrop-filter:blur(10px);
+    }
+    .eyebrow::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--success),#7ef0b7);
+      box-shadow:0 0 0 5px rgba(24,198,127,.14);
+    }
+
+    .section-head{margin-bottom:32px}
+    .section-title{
+      font-size:clamp(28px,3.2vw,48px);
+      line-height:1.08;
+      letter-spacing:-.035em;
+      margin:0 0 14px;
+      max-width:18ch;
+      text-wrap:balance;
+    }
+    .section-subtitle{
+      color:var(--muted);
+      max-width:760px;
+      font-size:18px;
+      margin:0;
+      text-wrap:pretty;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:54px;
+      padding:0 22px;
+      border-radius:16px;
+      font-weight:800;
+      transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--primary) 0%, var(--primary-2) 100%);
+      color:#123122fff;
+      box-shadow:0 16px 30px rgba(22,101,52,.18);
+    }
+    .btn-primary:hover{box-shadow:0 18px 34px rgba(22,101,52,.22)}
+    .btn-soft{
+      background:rgba(47,143,78,.06);
+      color:#123122fff;
+      border:1px solid var(--line-strong);
+      backdrop-filter:blur(10px);
+    }
+    .btn-soft:hover{background:rgba(22,101,52,.08)}
+    .btn-dark{
+      background:#fff;
+      color:#123122;
+      box-shadow:0 16px 30px rgba(255,255,255,.10);
+    }
+    .btn-sm{min-height:44px;padding:0 16px;border-radius:14px;font-size:14px}
+    .btn-block{width:100%}
+
+    .card{
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.95);
+      border:1px solid var(--line);
+      box-shadow:0 14px 34px rgba(18,49,34,.08);
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:80;
+      backdrop-filter:blur(16px);
+      background:rgba(255,255,255,.88);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      width:min(1300px,95%);
+      margin:auto;
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+    .brand-mark{
+      width:44px;height:44px;border-radius:14px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--primary) 0%, #a0c1ff 100%);
+      color:#123122fff;
+      font-weight:900;
+      letter-spacing:-.04em;
+      box-shadow:0 14px 26px rgba(22,101,52,.16);
+    }
+    .brand-copy strong{display:block;font-size:15px}
+    .brand-copy small{display:block;color:var(--muted);margin-top:2px}
+    .topbar-actions{display:flex;align-items:center;gap:12px}
+    .topbar-note{color:var(--muted);font-size:13px}
+
+    .hero{padding:58px 0 68px;position:relative}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);
+      gap:28px;
+      align-items:center;
+    }
+    .hero-copy h1{
+      margin:18px 0 18px;
+      font-size:clamp(36px,4.8vw,64px);
+      line-height:1.02;
+      letter-spacing:-.045em;
+      max-width:14ch;
+      text-wrap:balance;
+    }
+    .hero-copy p{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
+      max-width:62ch;
+      text-wrap:pretty;
+    }
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+    .hero-points{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:26px;
+    }
+    .hero-point{
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.90);
+    }
+    .hero-point strong{
+      display:block;
+      font-size:24px;
+      letter-spacing:-.03em;
+      margin-bottom:6px;
+    }
+    .hero-point span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .hero-card{
+      position:relative;
+      border-radius:var(--radius-lg);
+      background:
+        radial-gradient(circle at top right, rgba(22,101,52,.10), transparent 26%),
+        linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(243,251,244,.98) 100%);
+      border:1px solid var(--line);
+      box-shadow:0 22px 56px rgba(18,49,34,.12);
+      overflow:hidden;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:4px;
+      background:linear-gradient(90deg,var(--success),var(--primary),var(--warning));
+    }
+    .hero-card-inner{padding:22px}
+    .hero-price{
+      display:flex;
+      align-items:flex-end;
+      gap:10px;
+      margin:10px 0 4px;
+      flex-wrap:wrap;
+    }
+    .hero-price strong{
+      font-size:44px;
+      letter-spacing:-.04em;
+      line-height:1;
+    }
+    .hero-price small{
+      color:var(--muted);
+      text-decoration:line-through;
+      font-size:16px;
+      margin-bottom:6px;
+    }
+    .hero-card p{color:var(--muted);margin:0}
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:16px 0 18px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line-strong);
+      background:rgba(255,255,255,.95);
+      color:#166534;
+      font-size:12px;
+      font-weight:800;
+    }
+    .hero-video{
+      margin-top:16px;
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#ffffff;
+      position:relative;
+      aspect-ratio:16/9;
+    }
+    .hero-video-placeholder{
+      position:absolute;inset:0;
+      display:grid;place-items:center;
+      padding:24px;
+      text-align:center;
+      color:var(--muted);
+      background:
+        radial-gradient(circle at center, rgba(22,101,52,.08), transparent 30%),
+        linear-gradient(180deg,#ffffff 0%, #eff8f0 100%);
+    }
+    .hero-video-placeholder strong{
+      display:block;
+      color:var(--text);
+      font-size:22px;
+      margin-bottom:8px;
+    }
+    .hero-video-play{
+      width:74px;height:74px;border-radius:999px;
+      display:grid;place-items:center;
+      margin:0 auto 16px;
+      background:linear-gradient(135deg,var(--primary) 0%, var(--primary-2) 100%);
+      box-shadow:0 14px 28px rgba(22,101,52,.18);
+      font-size:28px;
+      color:#123122fff;
+    }
+    .trust-strip{
+      margin-top:26px;
+      padding:14px 16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(47,143,78,.05);
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+    }
+    .trust-item small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-weight:800;
+      margin-bottom:6px;
+    }
+    .trust-item strong{
+      display:block;
+      font-size:15px;
+      line-height:1.4;
+    }
+
+    .problem-grid,
+    .promise-grid,
+    .method-grid,
+    .offer-grid,
+    .final-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+      align-items:start;
+    }
+
+    .problem-card,
+    .promise-card,
+    .method-card,
+    .benefit-card,
+    .module-card,
+    .bonus-card,
+    .faq-item,
+    .testimonial-card,
+    .offer-card,
+    .authority-card,
+    .audience-card,
+    .metric-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,255,255,.05) 0%, rgba(255,255,255,.03) 100%);
+      box-shadow:0 14px 34px rgba(18,49,34,.08);
+    }
+    .problem-card::before,
+    .promise-card::before,
+    .method-card::before,
+    .benefit-card::before,
+    .module-card::before,
+    .bonus-card::before,
+    .offer-card::before,
+    .authority-card::before,
+    .audience-card::before,
+    .metric-card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:4px;
+      background:linear-gradient(90deg,var(--primary),rgba(122,163,255,.5));
+    }
+    .problem-card,
+    .promise-card,
+    .offer-card,
+    .authority-card,
+    .audience-card,
+    .metric-card{padding:24px}
+    .problem-card h3,
+    .promise-card h3,
+    .method-card h3,
+    .benefit-card h3,
+    .module-card h3,
+    .bonus-card h3,
+    .offer-card h3,
+    .authority-card h3,
+    .audience-card h3,
+    .testimonial-card h3{margin:0 0 10px;font-size:24px;letter-spacing:-.03em}
+    .problem-card p,
+    .promise-card p,
+    .method-card p,
+    .benefit-card p,
+    .module-card p,
+    .bonus-card p,
+    .offer-card p,
+    .authority-card p,
+    .audience-card p,
+    .testimonial-card p{margin:0;color:var(--muted)}
+    .bullet-list{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+    .bullet-item{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(47,143,78,.05);
+      color:#123122;
+    }
+    .bullet-item span.icon{
+      width:28px;height:28px;flex:0 0 28px;
+      display:grid;place-items:center;
+      border-radius:10px;
+      background:var(--primary-soft);
+      color:#166534;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .method-grid{grid-template-columns:1.15fr .85fr}
+    .method-stack{display:grid;gap:14px}
+    .method-card{padding:22px}
+    .method-step{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(47,143,78,.05);
+    }
+    .method-step-num{
+      width:46px;height:46px;flex:0 0 46px;
+      display:grid;place-items:center;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--primary),var(--primary-2));
+      font-weight:900;
+      box-shadow:0 16px 28px rgba(91,140,255,.22);
+    }
+    .method-step strong{display:block;font-size:18px;margin-bottom:4px}
+    .method-side{
+      padding:24px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(24,198,127,.14), transparent 28%),
+        linear-gradient(180deg,rgba(255,255,255,.05) 0%, rgba(255,255,255,.03) 100%);
+    }
+    .method-side h3{margin:0 0 10px;font-size:28px;letter-spacing:-.04em}
+    .method-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(24,198,127,.12);
+      border:1px solid rgba(24,198,127,.28);
+      color:#166534;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:14px;
+    }
+
+    .authority-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:22px;
+    }
+    .metric-card{padding:18px}
+    .metric-card strong{
+      display:block;
+      font-size:32px;
+      letter-spacing:-.04em;
+      margin-bottom:6px;
+    }
+    .metric-card span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .benefits-grid,
+    .modules-grid,
+    .bonuses-grid,
+    .testimonials-grid,
+    .audience-grid{
+      display:grid;
+      gap:16px;
+    }
+    .benefits-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .modules-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .bonuses-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .testimonials-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .benefit-card,
+    .module-card,
+    .bonus-card,
+    .testimonial-card{padding:22px}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.95);
+      font-size:12px;
+      font-weight:800;
+      color:#166534;
+      margin-bottom:14px;
+    }
+    .value-line{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid var(--line);
+    }
+    .value-line small{display:block;color:var(--muted)}
+    .value-line strong{display:block;font-size:18px;letter-spacing:-.03em}
+    .bonus-card .value{
+      display:inline-flex;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(24,198,127,.12);
+      border:1px solid rgba(24,198,127,.24);
+      color:#166534;
+      font-size:12px;
+      font-weight:800;
+      margin-top:16px;
+    }
+
+    .offer-card.featured{
+      background:
+        radial-gradient(circle at top right, rgba(22,101,52,.10), transparent 26%),
+        linear-gradient(180deg,rgba(255,255,255,.98) 0%, rgba(242,250,243,.98) 100%);
+    }
+    .offer-price{
+      display:flex;
+      align-items:flex-end;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:18px 0 10px;
+    }
+    .offer-price strong{
+      font-size:54px;
+      letter-spacing:-.05em;
+      line-height:1;
+    }
+    .offer-price small{
+      text-decoration:line-through;
+      color:var(--muted);
+      font-size:18px;
+      margin-bottom:8px;
+    }
+    .offer-list{
+      display:grid;
+      gap:10px;
+      margin:20px 0;
+    }
+    .offer-list-item{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(47,143,78,.05);
+    }
+    .offer-list-item b{color:#123122}
+    .guarantee{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(24,198,127,.22);
+      background:rgba(24,198,127,.10);
+      color:#166534;
+      margin-top:18px;
+    }
+    .guarantee-badge{
+      width:44px;height:44px;flex:0 0 44px;
+      display:grid;place-items:center;
+      border-radius:14px;
+      background:rgba(255,255,255,.12);
+      font-size:20px;
+    }
+
+    .testimonial-card{
+      background:
+        radial-gradient(circle at top right, rgba(22,101,52,.06), transparent 32%),
+        linear-gradient(180deg,rgba(255,255,255,.05) 0%, rgba(255,255,255,.03) 100%);
+    }
+    .testimonial-stars{
+      color:#166534;
+      letter-spacing:.2em;
+      margin-bottom:12px;
+      font-size:15px;
+    }
+    .testimonial-footer{
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid var(--line);
+    }
+    .testimonial-footer strong{display:block;font-size:15px}
+    .testimonial-footer small{color:var(--muted)}
+
+    .faq-wrap{
+      display:grid;
+      grid-template-columns:minmax(0,.92fr) minmax(320px,.72fr);
+      gap:18px;
+      align-items:start;
+    }
+    .faq-list{display:grid;gap:12px}
+    .faq-item{overflow:hidden}
+    .faq-question{
+      width:100%;
+      text-align:left;
+      border:none;
+      background:transparent;
+      color:var(--text);
+      padding:20px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:18px;
+    }
+    .faq-question span:last-child{
+      width:34px;height:34px;flex:0 0 34px;
+      display:grid;place-items:center;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(47,143,78,.05);
+      transition:transform .22s ease, background-color .22s ease;
+    }
+    .faq-item.active .faq-question span:last-child{
+      transform:rotate(45deg);
+      background:var(--primary-soft);
+    }
+    .faq-answer{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .28s ease;
+    }
+    .faq-answer-inner{
+      padding:0 22px 20px;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+      margin-top:0;
+      padding-top:16px;
+    }
+    .faq-side{
+      padding:24px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(255,191,77,.12), transparent 26%),
+        linear-gradient(180deg,rgba(255,255,255,.05) 0%, rgba(255,255,255,.03) 100%);
+      position:sticky;
+      top:94px;
+    }
+    .faq-side h3{margin:0 0 10px;font-size:28px;letter-spacing:-.04em}
+    .faq-side p{margin:0;color:var(--muted)}
+    .faq-side .btn{margin-top:20px}
+
+    .final-card{
+      padding:28px;
+      border-radius:28px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(22,101,52,.10), transparent 22%),
+        linear-gradient(180deg,rgba(255,255,255,.98) 0%, rgba(241,249,242,.98) 100%);
+      box-shadow:0 22px 56px rgba(18,49,34,.12);
+      position:relative;
+      overflow:hidden;
+    }
+    .final-card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:4px;
+      background:linear-gradient(90deg,var(--success),var(--primary),var(--warning));
+    }
+    .final-card .section-title{max-width:900px}
+    .final-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+
+    .footer{
+      padding:28px 0 46px;
+      color:var(--muted);
+      text-align:center;
+      font-size:14px;
+    }
+
+    .floating-bar{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      z-index:90;
+      width:min(980px,92%);
+      padding:12px;
+      border-radius:22px;
+      border:1px solid var(--line-strong);
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(16px);
+      box-shadow:0 22px 50px rgba(0,0,0,.34);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .floating-copy{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .floating-copy strong{
+      display:block;
+      font-size:15px;
+      line-height:1.35;
+    }
+    .floating-copy small{
+      display:block;
+      color:var(--muted);
+    }
+    .floating-price{
+      display:flex;
+      align-items:flex-end;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .floating-price strong{font-size:30px;letter-spacing:-.04em;line-height:1}
+    .floating-price span{color:var(--muted);text-decoration:line-through;font-size:14px}
+    .floating-actions{display:flex;gap:10px;align-items:center}
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+      margin:0 auto;
+      width:min(1200px,92%);
+    }
+
+
+    @media (max-width:1200px){
+      .hero-copy h1{font-size:clamp(34px,4.4vw,58px);max-width:15ch}
+      .section-title{font-size:clamp(28px,3vw,42px);max-width:20ch}
+    }
+
+    @media (max-width:1100px){
+      .hero-grid,
+      .problem-grid,
+      .promise-grid,
+      .method-grid,
+      .offer-grid,
+      .faq-wrap,
+      .audience-grid{
+        grid-template-columns:1fr;
+      }
+      .hero-points,
+      .trust-strip,
+      .authority-grid,
+      .benefits-grid,
+      .modules-grid,
+      .bonuses-grid,
+      .testimonials-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .faq-side{position:relative;top:auto}
+    }
+
+    @media (max-width:760px){
+      :root{--section-space:74px}
+      .topbar-note{display:none}
+      .topbar-inner{min-height:72px}
+      .hero-copy h1{font-size:clamp(32px,10vw,48px);max-width:13ch;line-height:1.04}
+      .hero-copy p{font-size:16px}
+      .section-title{font-size:clamp(26px,8vw,36px);max-width:100%;line-height:1.1}
+      .hero-points,
+      .trust-strip,
+      .authority-grid,
+      .benefits-grid,
+      .modules-grid,
+      .bonuses-grid,
+      .testimonials-grid{
+        grid-template-columns:1fr;
+      }
+      .hero-actions,
+      .final-actions,
+      .floating-actions{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .topbar-actions .btn-soft{display:none}
+      .btn{width:100%}
+      .floating-bar{
+        width:min(94%,94%);
+        left:3%;
+        transform:none;
+        right:3%;
+        bottom:12px;
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .floating-price{justify-content:flex-start}
+      .floating-actions .btn{width:100%}
+    }
+  
+    /* ===== Ajustes visuales premium blanco + verde + texto negro ===== */
+    :root{
+      --text:#111111;
+      --muted:#58635A;
+      --dark:#111111;
+      --primary:#173A24;
+      --primary-2:#166534;
+      --primary-soft:rgba(23,58,36,.08);
+      --success:#166534;
+      --line:rgba(17,17,17,.08);
+      --line-strong:rgba(17,17,17,.12);
+      --shadow:0 24px 60px rgba(17,24,39,.10);
+      --shadow-soft:0 16px 36px rgba(17,24,39,.07);
+    }
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(22,101,52,.05), transparent 26%),
+        radial-gradient(circle at top right, rgba(23,58,36,.04), transparent 18%),
+        linear-gradient(180deg,#FCFEFC 0%, #F7FBF8 36%, #F0F7F2 100%);
+      color:var(--text);
+    }
+    .topbar{background:rgba(255,255,255,.94); box-shadow:0 8px 26px rgba(17,24,39,.05)}
+    .brand-copy strong,.brand-copy small,.topbar-note,.section-subtitle,.problem-card p,.promise-card p,.method-card p,.benefit-card p,.module-card p,.bonus-card p,.offer-card p,.authority-card p,.audience-card p,.testimonial-card p,.metric-card span,.hero-copy p,.trust-item small,.value-line small,.floating-copy small,.footer,.faq-answer-inner{color:var(--muted)}
+    .section-title,.problem-card h3,.promise-card h3,.method-card h3,.benefit-card h3,.module-card h3,.bonus-card h3,.offer-card h3,.authority-card h3,.audience-card h3,.testimonial-card h3,.faq-side h3,.floating-copy strong,.trust-item strong,.metric-card strong,.value-line strong,.hero-copy h1,.hero-price strong,.offer-price strong,.section-head .eyebrow,.hero-card p strong,.offer-list-item b{color:var(--text)}
+    .btn{
+      border-radius:999px;
+      min-height:56px;
+      padding:0 24px;
+      font-weight:800;
+      letter-spacing:-.01em;
+    }
+    .btn-primary{
+      background:linear-gradient(180deg,#20472D 0%, #173A24 100%);
+      color:#ffffff;
+      border:1px solid rgba(23,58,36,.90);
+      box-shadow:0 14px 28px rgba(23,58,36,.18);
+    }
+    .btn-primary:hover{
+      background:linear-gradient(180deg,#173A24 0%, #102A19 100%);
+      box-shadow:0 18px 34px rgba(23,58,36,.24);
+    }
+    .btn-soft,.btn-dark{
+      background:#FFFFFF;
+      color:#111111;
+      border:1px solid rgba(17,17,17,.10);
+      box-shadow:0 8px 20px rgba(17,24,39,.05);
+    }
+    .btn-soft:hover,.btn-dark:hover{
+      background:#F7FBF8;
+      border-color:rgba(23,58,36,.18);
+    }
+    .hero-card,.problem-card,.promise-card,.method-card,.benefit-card,.module-card,.bonus-card,.faq-item,.testimonial-card,.offer-card,.authority-card,.audience-card,.metric-card,.final-card,.faq-side{
+      background:linear-gradient(180deg,#FFFFFF 0%, #FBFDFB 100%);
+      border-color:rgba(17,17,17,.08);
+      box-shadow:var(--shadow-soft);
+    }
+    .hero-point,.bullet-item,.offer-list-item,.method-step,.trust-strip,.chip,.tag{
+      background:#FFFFFF;
+      border-color:rgba(17,17,17,.08);
+      color:var(--text);
+      box-shadow:0 8px 20px rgba(17,24,39,.04);
+    }
+    .chip,.tag,.eyebrow{
+      background:#F6FBF7;
+      color:#173A24;
+    }
+    .hero-card::before,.problem-card::before,.promise-card::before,.method-card::before,.benefit-card::before,.module-card::before,.bonus-card::before,.offer-card::before,.authority-card::before,.audience-card::before,.metric-card::before,.final-card::before{
+      background:linear-gradient(90deg,#173A24,#2F855A);
+    }
+    .hero-video{
+      background:linear-gradient(180deg,#FFFFFF 0%, #F7FBF8 100%);
+      border-color:rgba(17,17,17,.08);
+    }
+    .hero-video-placeholder{
+      background:
+        radial-gradient(circle at center, rgba(22,101,52,.08), transparent 32%),
+        linear-gradient(180deg,#FFFFFF 0%, #F7FBF8 100%);
+      color:var(--muted);
+    }
+    .hero-video-play{
+      background:linear-gradient(180deg,#20472D 0%, #173A24 100%);
+      color:#ffffff;
+      box-shadow:0 14px 30px rgba(23,58,36,.16);
+    }
+    .bullet-item span.icon{
+      background:#F0F7F2;
+      color:#173A24;
+      border:1px solid rgba(23,58,36,.10);
+    }
+    .method-tag,.bonus-card .value,.guarantee{
+      background:#F0F7F2;
+      color:#173A24;
+      border-color:rgba(23,58,36,.12);
+    }
+    .floating-bar{
+      background:rgba(255,255,255,.95);
+      border-color:rgba(17,17,17,.08);
+      box-shadow:0 18px 40px rgba(17,24,39,.10);
+    }
+    .floating-price strong{color:var(--text)}
+    .floating-price span{color:var(--muted)}
+    .hero-illustration-shell{
+      width:100%;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:18px;
+    }
+    .hero-illustration-caption{
+      margin-top:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#FFFFFF;
+      border:1px solid rgba(17,17,17,.08);
+      color:#173A24;
+      font-size:12px;
+      font-weight:800;
+      box-shadow:0 10px 20px rgba(17,24,39,.05);
+    }
+    .image-bridge{
+      padding-top:20px;
+    }
+    .image-bridge-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+    .story-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:26px;
+      border:1px solid rgba(17,17,17,.08);
+      background:linear-gradient(180deg,#FFFFFF 0%, #FBFDFB 100%);
+      box-shadow:var(--shadow-soft);
+      padding:18px;
+    }
+    .story-card::before{
+      content:'';
+      position:absolute;
+      inset:0 0 auto 0;
+      height:4px;
+      background:linear-gradient(90deg,#173A24,#2F855A);
+    }
+    .story-visual{
+      min-height:220px;
+      border-radius:20px;
+      border:1px solid rgba(17,17,17,.06);
+      background:linear-gradient(180deg,#F8FCF8 0%, #F1F8F3 100%);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+    }
+    .story-card h3{
+      margin:16px 0 8px;
+      font-size:24px;
+      letter-spacing:-.03em;
+      color:#111111;
+    }
+    .story-card p{
+      margin:0;
+      color:var(--muted);
+    }
+    .mini-proof{
+      margin-top:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#F6FBF7;
+      border:1px solid rgba(23,58,36,.10);
+      color:#173A24;
+      font-size:12px;
+      font-weight:800;
+    }
+    .illustration-svg{
+      width:100%;
+      max-width:360px;
+      height:auto;
+    }
+    .faq-question{
+      color:var(--text);
+    }
+    .faq-question span:last-child{
+      background:#FFFFFF;
+    }
+    @media (max-width:1100px){
+      .image-bridge-grid{grid-template-columns:1fr;}
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#inicio">
+        <div class="brand-mark">IA</div>
+        <div class="brand-copy">
+          <strong>Vende con I.A.</strong>
+          <small>Curso práctico para vender por WhatsApp</small>
+        </div>
+      </a>
+      <div class="topbar-actions">
+        <span class="topbar-note">Acceso inmediato + 3 bonos + garantía de 7 días</span>
+        <a class="btn btn-soft btn-sm" href="#preguntas">Ver preguntas</a>
+        <a class="btn btn-primary btn-sm" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Entrar ahora</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">WhatsApp + ventas + claridad</span>
+            <h1>Convierte WhatsApp en una máquina de ventas con mensajes claros, seguimiento correcto y una estrategia simple que sí lleva a tus clientes a comprar.</h1>
+            <p>Vende con I.A. es el programa práctico que te enseña qué decir, cómo responder y cómo cerrar ventas por WhatsApp sin presionar, sin sonar forzado y sin perder clientes por no saber qué contestar.</p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Quiero entrar ahora</a>
+              <a class="btn btn-soft" href="#incluye">Ver todo lo que incluye</a>
+            </div>
+
+            <div class="hero-points">
+              <div class="hero-point">
+                <strong>4</strong>
+                <span>Módulos prácticos para avanzar paso a paso</span>
+              </div>
+              <div class="hero-point">
+                <strong>3</strong>
+                <span>Bonos para vender con más estructura</span>
+              </div>
+              <div class="hero-point">
+                <strong>7</strong>
+                <span>Días de garantía para entrar con tranquilidad</span>
+              </div>
+              <div class="hero-point">
+                <strong>16 USD</strong>
+                <span>Precio especial de hoy en vez de 147 USD</span>
+              </div>
+            </div>
+
+            <div class="trust-strip">
+              <div class="trust-item">
+                <small>Ideal para</small>
+                <strong>Productos y servicios</strong>
+              </div>
+              <div class="trust-item">
+                <small>Enfoque</small>
+                <strong>Mensajes reales de venta</strong>
+              </div>
+              <div class="trust-item">
+                <small>Objetivo</small>
+                <strong>Más claridad al responder</strong>
+              </div>
+              <div class="trust-item">
+                <small>Acceso</small>
+                <strong>Inmediato después del pago</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-inner">
+              <span class="eyebrow">Oferta especial</span>
+              <div class="hero-price">
+                <strong>$16 USD</strong>
+                <small>$147 USD</small>
+              </div>
+              <p>También disponible por <strong>57.000 COP</strong>. Curso completo + 3 bonos + garantía de 7 días.</p>
+
+              <div class="hero-badges">
+                <span class="chip">Método C.A.R.</span>
+                <span class="chip">Acceso inmediato</span>
+                <span class="chip">Pagas una vez</span>
+                <span class="chip">Plantillas incluidas</span>
+              </div>
+
+              
+              <div class="hero-video">
+                <div class="hero-illustration-shell">
+                  <div>
+                    <svg class="illustration-svg" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="35" y="40" width="350" height="235" rx="28" fill="#F4FBF5" stroke="rgba(17,17,17,.07)"/>
+                      <rect x="68" y="70" width="122" height="192" rx="22" fill="#173A24"/>
+                      <rect x="79" y="92" width="100" height="147" rx="16" fill="#ffffff"/>
+                      <rect x="93" y="110" width="72" height="16" rx="8" fill="#EAF6EC"/>
+                      <rect x="93" y="136" width="60" height="10" rx="5" fill="#D3EBDD"/>
+                      <rect x="93" y="157" width="55" height="32" rx="12" fill="#DCF2E2"/>
+                      <rect x="110" y="201" width="34" height="6" rx="3" fill="#B6DCC4"/>
+                      <circle cx="128" cy="248" r="7" fill="#2F855A"/>
+                      <rect x="218" y="88" width="126" height="52" rx="20" fill="#FFFFFF" stroke="rgba(17,17,17,.06)"/>
+                      <circle cx="242" cy="114" r="12" fill="#EAF6EC"/>
+                      <rect x="262" y="103" width="56" height="10" rx="5" fill="#173A24"/>
+                      <rect x="262" y="119" width="44" height="8" rx="4" fill="#8AA394"/>
+                      <rect x="234" y="154" width="110" height="50" rx="18" fill="#173A24"/>
+                      <rect x="252" y="170" width="54" height="8" rx="4" fill="#ffffff"/>
+                      <rect x="252" y="184" width="40" height="8" rx="4" fill="#D6ECDD"/>
+                      <circle cx="307" cy="266" r="38" fill="#EAF6EC"/>
+                      <circle cx="307" cy="242" r="16" fill="#173A24"/>
+                      <path d="M280 286C285.6 269.6 297.5 261.4 307 261.4C316.5 261.4 328.4 269.6 334 286" fill="#173A24"/>
+                      <rect x="275" y="222" width="65" height="18" rx="9" fill="#FFFFFF" stroke="rgba(17,17,17,.06)"/>
+                      <path d="M288 231L295 238L324 210" stroke="#2F855A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="hero-illustration-caption">Conversaciones más claras · más confianza · más cierre</div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div style="display:grid;gap:10px;margin-top:18px;">
+                <a class="btn btn-primary btn-block" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Quiero aprovechar el precio de hoy</a>
+                <a class="btn btn-soft btn-block" href="https://wa.me/" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section image-bridge" id="conecta">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Imágenes que conectan</span>
+          <h2 class="section-title">La venta no empieza cuando mandas el precio. Empieza cuando la persona se siente entendida.</h2>
+          <p class="section-subtitle">Agregué tres bloques visuales que conectan con la realidad del cliente: recibir mensajes, responder con claridad y lograr que la conversación avance a compra.</p>
+        </div>
+
+        <div class="image-bridge-grid">
+          <div class="story-card">
+            <div class="story-visual">
+              <svg class="illustration-svg" viewBox="0 0 420 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="44" y="34" width="332" height="194" rx="24" fill="#FFFFFF" stroke="rgba(17,17,17,.06)"/>
+                <rect x="70" y="58" width="122" height="148" rx="20" fill="#173A24"/>
+                <rect x="81" y="74" width="100" height="118" rx="14" fill="#F6FBF7"/>
+                <rect x="95" y="92" width="72" height="16" rx="8" fill="#DDF2E3"/>
+                <rect x="95" y="118" width="58" height="10" rx="5" fill="#BFD9C8"/>
+                <rect x="95" y="139" width="62" height="34" rx="12" fill="#173A24"/>
+                <rect x="107" y="151" width="37" height="8" rx="4" fill="#FFFFFF"/>
+                <circle cx="278" cy="118" r="52" fill="#EAF6EC"/>
+                <circle cx="278" cy="96" r="20" fill="#173A24"/>
+                <path d="M242 162C248 141 262 130 278 130C294 130 308 141 314 162" fill="#173A24"/>
+                <rect x="240" y="174" width="94" height="20" rx="10" fill="#FFFFFF" stroke="rgba(17,17,17,.06)"/>
+                <rect x="251" y="181" width="62" height="6" rx="3" fill="#173A24"/>
+              </svg>
+            </div>
+            <h3>Tu cliente sí tiene interés</h3>
+            <p>Muchas veces el problema no es el producto. El problema es que la conversación no logra transmitir confianza ni claridad.</p>
+            <span class="mini-proof">Conectar antes de vender</span>
+          </div>
+
+          <div class="story-card">
+            <div class="story-visual">
+              <svg class="illustration-svg" viewBox="0 0 420 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="40" y="40" width="340" height="180" rx="24" fill="#FFFFFF" stroke="rgba(17,17,17,.06)"/>
+                <rect x="70" y="70" width="122" height="120" rx="18" fill="#F5FBF6" stroke="rgba(17,17,17,.05)"/>
+                <rect x="92" y="88" width="64" height="12" rx="6" fill="#173A24"/>
+                <rect x="92" y="110" width="80" height="10" rx="5" fill="#A3BAAB"/>
+                <rect x="92" y="130" width="72" height="34" rx="12" fill="#DCF2E2"/>
+                <path d="M233 102H349" stroke="#D7EADB" stroke-width="6" stroke-linecap="round"/>
+                <path d="M233 130H318" stroke="#D7EADB" stroke-width="6" stroke-linecap="round"/>
+                <path d="M233 158H299" stroke="#D7EADB" stroke-width="6" stroke-linecap="round"/>
+                <rect x="244" y="176" width="94" height="28" rx="14" fill="#173A24"/>
+                <path d="M266 190L276 200L317 159" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Responder bien cambia todo</h3>
+            <p>Una respuesta bien construida puede mover la conversación del interés frío a una decisión concreta.</p>
+            <span class="mini-proof">Argumentar con claridad</span>
+          </div>
+
+          <div class="story-card">
+            <div class="story-visual">
+              <svg class="illustration-svg" viewBox="0 0 420 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="44" y="34" width="332" height="194" rx="24" fill="#FFFFFF" stroke="rgba(17,17,17,.06)"/>
+                <circle cx="138" cy="118" r="48" fill="#EAF6EC"/>
+                <circle cx="138" cy="96" r="18" fill="#173A24"/>
+                <path d="M103 160C108 141 122 130 138 130C154 130 168 141 173 160" fill="#173A24"/>
+                <rect x="220" y="78" width="90" height="90" rx="20" fill="#173A24"/>
+                <rect x="234" y="92" width="62" height="44" rx="12" fill="#FFFFFF"/>
+                <path d="M246 147H284" stroke="#BFD9C8" stroke-width="6" stroke-linecap="round"/>
+                <path d="M233 190L242 198L257 182" stroke="#2F855A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M265 190L274 198L289 182" stroke="#2F855A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M297 190L306 198L321 182" stroke="#2F855A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>El cierre se siente más natural</h3>
+            <p>Cuando la persona entiende el valor y siente seguridad, comprar deja de sentirse como una presión.</p>
+            <span class="mini-proof">Rematar sin presionar</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="problema">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">El verdadero problema</span>
+          <h2 class="section-title">El problema no es que te escriban poco. El problema es no saber cómo llevar esa conversación hasta la venta.</h2>
+          <p class="section-subtitle">Muchas personas tienen mensajes, preguntas e interesados todos los días, pero al momento de responder dudan. Y cuando dudan, muchas ventas se enfrían o se pierden.</p>
+        </div>
+
+        <div class="problem-grid">
+          <div class="problem-card">
+            <h3>Lo que pasa hoy</h3>
+            <p>No se cae la venta por falta de interés. Se cae porque la conversación pierde fuerza.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">✓</span><div>Te preguntan y luego desaparecen.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Te dejan en visto después del precio.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Sientes que improvisas cada respuesta.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>No sabes cómo cerrar sin sonar pesado.</div></div>
+            </div>
+          </div>
+
+          <div class="problem-card">
+            <h3>Lo que eso te cuesta</h3>
+            <p>Cada mensaje mal manejado es una venta que se enfría. Y eso pasa más veces de lo que parece.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">$</span><div>Interés que no se convierte en pago.</div></div>
+              <div class="bullet-item"><span class="icon">$</span><div>Tiempo perdido respondiendo sin estructura.</div></div>
+              <div class="bullet-item"><span class="icon">$</span><div>Clientes que sí querían comprar, pero no sintieron claridad.</div></div>
+              <div class="bullet-item"><span class="icon">$</span><div>Más esfuerzo y menos conversiones.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:22px;display:flex;justify-content:center;">
+          <a class="btn btn-primary" href="#metodo">Aprender a responder mejor</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="promesa">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">La promesa</span>
+          <h2 class="section-title">Aquí no vas a recibir más teoría para guardar. Vas a aprender un sistema claro para responder mejor y vender más.</h2>
+          <p class="section-subtitle">Este programa está pensado para negocios reales, conversaciones reales y situaciones reales de venta por WhatsApp.</p>
+        </div>
+
+        <div class="promise-grid">
+          <div class="promise-card">
+            <h3>Qué vas a lograr</h3>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">→</span><div>Iniciar conversaciones con más seguridad.</div></div>
+              <div class="bullet-item"><span class="icon">→</span><div>Responder el precio con mejor estrategia.</div></div>
+              <div class="bullet-item"><span class="icon">→</span><div>Manejar objeciones con más claridad.</div></div>
+              <div class="bullet-item"><span class="icon">→</span><div>Hacer seguimiento sin incomodar.</div></div>
+              <div class="bullet-item"><span class="icon">→</span><div>Cerrar con más estructura y menos improvisación.</div></div>
+            </div>
+          </div>
+
+          <div class="promise-card">
+            <h3>Cómo se siente después</h3>
+            <p>Ya no respondes por intuición. Respondes con intención. Y eso cambia por completo la calidad de la conversación.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">✓</span><div>Más seguridad al hablar con clientes.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Más claridad al presentar tu oferta.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Menos dudas cuando llega una objeción.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Más capacidad para convertir interés en acción.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="metodo">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Método propio</span>
+          <h2 class="section-title">Todo el curso está basado en el Método C.A.R.: Conectar, Argumentar y Rematar.</h2>
+          <p class="section-subtitle">No son mensajes robotizados. Es una estructura simple para saber qué decir en cada momento de la conversación.</p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-stack">
+            <div class="method-card">
+              <div class="method-step">
+                <div class="method-step-num">01</div>
+                <div>
+                  <strong>Conectar</strong>
+                  <p>Aprendes a iniciar la conversación, generar confianza y entender qué necesita realmente la persona antes de lanzarte a vender.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="method-card">
+              <div class="method-step">
+                <div class="method-step-num">02</div>
+                <div>
+                  <strong>Argumentar</strong>
+                  <p>Aprendes a responder con claridad, mostrar valor, manejar preguntas difíciles y presentar tu oferta sin sonar forzado.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="method-card">
+              <div class="method-step">
+                <div class="method-step-num">03</div>
+                <div>
+                  <strong>Rematar</strong>
+                  <p>Aprendes a cerrar, hacer seguimiento, retomar conversaciones y llevar al cliente a tomar acción sin presionar.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="method-side">
+            <div class="method-tag">Sistema práctico y aplicable</div>
+            <h3>Menos improvisación. Más intención de venta.</h3>
+            <p>La idea de este método es que no dependas del azar cada vez que alguien te escribe. Vas a tener una guía clara para responder con más lógica comercial.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">✓</span><div>Sirve para productos y servicios.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Te ayuda aunque no te consideres vendedor.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Se enfoca en conversaciones reales por WhatsApp.</div></div>
+            </div>
+            <div style="margin-top:20px;">
+              <a class="btn btn-primary btn-block" href="#incluye">Quiero aprender el método C.A.R.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="autoridad">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Autoridad y percepción</span>
+          <h2 class="section-title">Este programa fue creado para ayudarte a vender mejor en una de las herramientas más poderosas del mundo digital: WhatsApp.</h2>
+          <p class="section-subtitle">Tu producto puede ser bueno y tu servicio puede ayudar bastante. Pero si no sabes cómo manejar la conversación, el interés se enfría. Aquí aprendes una estructura para que eso deje de pasar.</p>
+        </div>
+
+        <div class="authority-grid">
+          <div class="metric-card">
+            <strong>100%</strong>
+            <span>Enfocado en situaciones reales de venta por WhatsApp.</span>
+          </div>
+          <div class="metric-card">
+            <strong>4</strong>
+            <span>Módulos diseñados para que entiendas la conversación de principio a fin.</span>
+          </div>
+          <div class="metric-card">
+            <strong>3</strong>
+            <span>Bonos que complementan el curso principal y fortalecen tu ejecución.</span>
+          </div>
+          <div class="metric-card">
+            <strong>7 días</strong>
+            <span>De garantía para que entres sin presión y sin riesgo.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="resultados">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Transformación</span>
+          <h2 class="section-title">Lo que esta formación busca es que dejes de adivinar qué responder y empieces a vender con más estructura.</h2>
+          <p class="section-subtitle">No estás comprando solo videos. Estás entrando a un sistema que te ayuda a conversar mejor, responder mejor y cerrar mejor.</p>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <span class="tag">Inicio</span>
+            <h3>Más seguridad para empezar</h3>
+            <p>Vas a saber cómo abrir conversaciones sin sentirte perdido ni sonar improvisado.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="tag">Precio</span>
+            <h3>Respuestas con más estrategia</h3>
+            <p>Vas a aprender a contestar el precio con más lógica y menos miedo a que te dejen en visto.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="tag">Objeciones</span>
+            <h3>Más claridad al manejar dudas</h3>
+            <p>Vas a entender cómo responder cuando la persona duda, compara o se frena.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="tag">Seguimiento</span>
+            <h3>Menos silencios perdidos</h3>
+            <p>Vas a saber cómo retomar conversaciones sin sentirte incómodo ni insistente.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="tag">Cierre</span>
+            <h3>Más intención comercial</h3>
+            <p>Vas a poder llevar mejor al cliente hacia una decisión y una acción concreta.</p>
+          </div>
+          <div class="benefit-card">
+            <span class="tag">Sistema</span>
+            <h3>Menos improvisación diaria</h3>
+            <p>Vas a dejar de responder por intuición y vas a empezar a responder con estructura.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="incluye">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Qué incluye</span>
+          <h2 class="section-title">Esto es todo lo que recibes dentro de Vende con I.A.</h2>
+          <p class="section-subtitle">Cada módulo está pensado para resolver una parte clave de la conversación comercial por WhatsApp.</p>
+        </div>
+
+        <div class="modules-grid">
+          <div class="module-card">
+            <span class="tag">Módulo 1</span>
+            <h3>Transforma tu WhatsApp en una máquina de ventas</h3>
+            <p>Aprende cómo preparar tu WhatsApp para que no solo reciba mensajes, sino que ayude a convertir mejor desde la primera impresión.</p>
+            <div class="value-line">
+              <div>
+                <small>Resultado</small>
+                <strong>Orden y primera impresión</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <span class="tag">Módulo 2</span>
+            <h3>Qué decir para vender sin presionar</h3>
+            <p>Descubre cómo responder con claridad, conectar mejor con el cliente y presentar tu oferta sin sonar vendedor.</p>
+            <div class="value-line">
+              <div>
+                <small>Resultado</small>
+                <strong>Más claridad al responder</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <span class="tag">Módulo 3</span>
+            <h3>Cierre fácil: cómo convertir el interés en acción</h3>
+            <p>Aprende cómo mover la conversación hacia el cierre y ayudar a que la persona tome decisión.</p>
+            <div class="value-line">
+              <div>
+                <small>Resultado</small>
+                <strong>Más intención de compra</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <span class="tag">Módulo 4</span>
+            <h3>Seguimiento sin presionar</h3>
+            <p>Aprende a retomar conversaciones, recuperar interesados y hacer seguimiento sin parecer insistente.</p>
+            <div class="value-line">
+              <div>
+                <small>Resultado</small>
+                <strong>Más oportunidades recuperadas</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;display:flex;justify-content:center;">
+          <a class="btn btn-primary" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Quiero acceso al curso</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bonos">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Bonos incluidos</span>
+          <h2 class="section-title">Además del curso principal, hoy también recibes estos bonos sin costo adicional.</h2>
+          <p class="section-subtitle">No estás entrando solo a un curso. Estás entrando a una solución mucho más completa para vender mejor por WhatsApp.</p>
+        </div>
+
+        <div class="bonuses-grid">
+          <div class="bonus-card">
+            <span class="tag">Bono #1</span>
+            <h3>Producto Irresistible</h3>
+            <p>Aprende cómo presentar mejor lo que vendes para que tu oferta tenga más fuerza, más atractivo y más capacidad de convencer.</p>
+            <span class="value">Valor: 17 USD (68.000 COP)</span>
+          </div>
+
+          <div class="bonus-card">
+            <span class="tag">Bono #2</span>
+            <h3>Asistente Digital</h3>
+            <p>Un recurso diseñado para ayudarte a responder mejor, ahorrar tiempo y tener más apoyo en tus conversaciones.</p>
+            <span class="value">Valor: 97 USD (390.000 COP)</span>
+          </div>
+
+          <div class="bonus-card">
+            <span class="tag">Bono #3</span>
+            <h3>Plantillas de Automatización</h3>
+            <p>Mensajes y estructuras listas para ayudarte a responder más rápido y con mejor intención de venta.</p>
+            <span class="value">Valor: 8 USD (32.000 COP)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="oferta">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Oferta de hoy</span>
+          <h2 class="section-title">Hoy puedes entrar con una oferta especial y acceso inmediato.</h2>
+          <p class="section-subtitle">El precio normal es mucho mayor, pero hoy puedes asegurar el acceso con una inversión mucho más baja.</p>
+        </div>
+
+        <div class="offer-grid">
+          <div class="offer-card featured">
+            <h3>Tu acceso hoy</h3>
+            <div class="offer-price">
+              <strong>$16 USD</strong>
+              <small>$147 USD</small>
+            </div>
+            <p>También puedes entrar por <strong>57.000 COP</strong>.</p>
+
+            <div class="offer-list">
+              <div class="offer-list-item"><div><b>Incluye el curso completo</b><br><span style="color:var(--muted)">4 módulos diseñados para vender mejor por WhatsApp.</span></div></div>
+              <div class="offer-list-item"><div><b>Incluye 3 bonos</b><br><span style="color:var(--muted)">Recursos adicionales para aumentar tu claridad y tu velocidad de ejecución.</span></div></div>
+              <div class="offer-list-item"><div><b>Acceso inmediato</b><br><span style="color:var(--muted)">Entras apenas se confirma tu pago.</span></div></div>
+              <div class="offer-list-item"><div><b>Pagas una sola vez</b><br><span style="color:var(--muted)">No hay cobros mensuales.</span></div></div>
+            </div>
+
+            <a class="btn btn-primary btn-block" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Quiero aprovechar el precio de hoy</a>
+          </div>
+
+          <div class="offer-card">
+            <h3>Entras sin presión y sin riesgo</h3>
+            <p>Tienes una garantía de 7 días. Si entras, revisas el contenido y sientes que no era lo que esperabas, puedes solicitar la devolución dentro de ese plazo.</p>
+
+            <div class="guarantee">
+              <div class="guarantee-badge">✓</div>
+              <div>
+                <strong>Garantía de 7 días</strong>
+                <div style="color:#166534;margin-top:4px;">La idea no es que compres con duda. La idea es que tomes la decisión con tranquilidad.</div>
+              </div>
+            </div>
+
+            <div class="bullet-list" style="margin-top:18px;">
+              <div class="bullet-item"><span class="icon">✓</span><div>Acceso inmediato después del pago.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Curso orientado a acción, no a relleno.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Ideal si vendes productos o servicios.</div></div>
+            </div>
+
+            <div style="margin-top:20px;">
+              <a class="btn btn-soft btn-block" href="https://wa.me/" target="_blank" rel="noopener">Resolver dudas por WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testimonios">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Prueba social</span>
+          <h2 class="section-title">Aquí van los testimonios que más te conviene mostrar: cambios reales, conversaciones reales y resultados visibles.</h2>
+          <p class="section-subtitle">Te dejé la estructura lista para que reemplaces estos bloques por tus testimonios reales en texto, video o captura.</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>“Antes respondía por responder. Ahora tengo más claridad para hablar con mis clientes y la conversación avanza mucho mejor.”</p>
+            <div class="testimonial-footer">
+              <strong>Nombre del alumno</strong>
+              <small>Tipo de negocio o servicio</small>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>“Lo que más me ayudó fue aprender cómo responder al precio y cómo hacer seguimiento sin sentirme incómodo.”</p>
+            <div class="testimonial-footer">
+              <strong>Nombre del alumno</strong>
+              <small>Tipo de negocio o servicio</small>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>“Sentía que perdía ventas por no saber qué decir. Este curso me ayudó a ordenar eso y a tener una estructura.”</p>
+            <div class="testimonial-footer">
+              <strong>Nombre del alumno</strong>
+              <small>Tipo de negocio o servicio</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="para-quien">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Para quién es</span>
+          <h2 class="section-title">Este programa es para personas que quieren dejar de improvisar y empezar a vender con más estructura por WhatsApp.</h2>
+          <p class="section-subtitle">Sirve tanto para quien vende productos como para quien vende servicios.</p>
+        </div>
+
+        <div class="audience-grid">
+          <div class="audience-card">
+            <h3>Este programa es para ti si…</h3>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">✓</span><div>Vendes por WhatsApp y quieres convertir más.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Te escriben personas, pero no siempre compran.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>No sabes qué decir en ciertos momentos de la conversación.</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Quieres aprender a hacer seguimiento sin parecer insistente.</div></div>
+            </div>
+          </div>
+
+          <div class="audience-card">
+            <h3>No es para ti si…</h3>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">×</span><div>Buscas teoría larga sin aplicación real.</div></div>
+              <div class="bullet-item"><span class="icon">×</span><div>No tienes intención de mejorar cómo conversas con tus clientes.</div></div>
+              <div class="bullet-item"><span class="icon">×</span><div>Quieres resultados sin implementar nada.</div></div>
+              <div class="bullet-item"><span class="icon">×</span><div>Esperas una solución mágica sin trabajo de tu parte.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="preguntas">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2 class="section-title">Resuelve aquí las dudas más comunes antes de entrar.</h2>
+          <p class="section-subtitle">La idea es que tomes la decisión con claridad.</p>
+        </div>
+
+        <div class="faq-wrap">
+          <div class="faq-list">
+            <div class="faq-item active">
+              <button class="faq-question">
+                <span>¿Necesito saber de ventas para entrar?</span>
+                <span>+</span>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  No. El curso está pensado para ayudarte paso a paso, incluso si sientes que no eres bueno vendiendo o si todavía respondes con inseguridad.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿Sirve si vendo servicios?</span>
+                <span>+</span>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  Sí. La estructura aplica tanto para productos como para servicios porque trabaja la conversación, la claridad y el seguimiento.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿Cuándo recibo acceso?</span>
+                <span>+</span>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  El acceso es inmediato después del pago. Apenas se confirma tu compra, puedes empezar a revisar el contenido.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿Voy a recibir mensajes listos?</span>
+                <span>+</span>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  Sí, pero lo más importante es que vas a entender la lógica detrás de cada respuesta para adaptarla mejor a tu negocio y a cada cliente.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿Y si ya he hecho otros cursos?</span>
+                <span>+</span>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  Perfecto. Este programa funciona muy bien como complemento práctico para ordenar mejor tus conversaciones reales y dejar de improvisar.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>¿Qué pasa si no me gusta?</span>
+                <span>+</span>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  Tienes una garantía de 7 días. Puedes revisar el contenido con tranquilidad y, si sientes que no era lo que esperabas, solicitar la devolución dentro de ese plazo.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-side">
+            <h3>Tu siguiente paso</h3>
+            <p>Si ya sabes que WhatsApp es una parte importante de tus ventas, lo más inteligente es aprender a usarlo mejor.</p>
+            <div class="bullet-list">
+              <div class="bullet-item"><span class="icon">✓</span><div>Curso completo</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>3 bonos</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Acceso inmediato</div></div>
+              <div class="bullet-item"><span class="icon">✓</span><div>Garantía de 7 días</div></div>
+            </div>
+            <a class="btn btn-primary btn-block" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Entrar ahora</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cierre">
+      <div class="container">
+        <div class="final-card">
+          <span class="eyebrow">Cierre final</span>
+          <h2 class="section-title">Cada día que alguien te escribe y no te compra, puede que no estés perdiendo solo una venta. Puede que estés perdiendo muchas más de las que imaginas.</h2>
+          <p class="section-subtitle">Vende con I.A. fue creado para ayudarte a resolver eso de forma práctica. Hoy no estás entrando solo a un curso. Estás entrando a una forma más clara de vender por WhatsApp.</p>
+
+          <div class="offer-price" style="margin-top:22px;">
+            <strong>$16 USD</strong>
+            <small>$147 USD</small>
+          </div>
+
+          <div class="final-actions">
+            <a class="btn btn-primary" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Quiero entrar ahora</a>
+            <a class="btn btn-soft" href="https://wa.me/" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="floating-bar">
+    <div class="floating-copy">
+      <strong>Vende con I.A. + 3 bonos + garantía de 7 días</strong>
+      <small>Acceso inmediato después del pago</small>
+    </div>
+    <div class="floating-price">
+      <strong>$16</strong>
+      <span>$147</span>
+    </div>
+    <div class="floating-actions">
+      <a class="btn btn-soft btn-sm" href="#incluye">Ver incluye</a>
+      <a class="btn btn-primary btn-sm" href="https://pay.hotmart.com/R100783971X" target="_blank" rel="noopener">Comprar ahora</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      Archivo listo para editar. Puedes cambiar textos, colores, video, testimonios, enlaces y WhatsApp desde este mismo HTML.
+    </div>
+  </footer>
+
+  <script>
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const button = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+
+      function setHeight(active){
+        answer.style.maxHeight = active ? answer.scrollHeight + 'px' : '0px';
+      }
+
+      setHeight(item.classList.contains('active'));
+
+      button.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        faqItems.forEach(other => {
+          other.classList.remove('active');
+          other.querySelector('.faq-answer').style.maxHeight = '0px';
+        });
+
+        if(!isActive){
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('.faq-item.active .faq-answer').forEach(answer => {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      });
+    });
+  </script>
+</body>
+</html>
